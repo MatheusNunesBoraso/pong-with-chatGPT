@@ -50,17 +50,19 @@ function draw() {
 }
 
 // Classe Bola
+// Classe Bola
 class Bola {
   constructor() {
     this.x = width / 2;
     this.y = height / 2;
     this.velocidadeX = 5 * (random() > 0.5 ? 1 : -1);
     this.velocidadeY = random(-3, 3);
+    this.tamanho = 20;
   }
 
   mostra() {
     fill(255);
-    ellipse(this.x, this.y, 20);
+    ellipse(this.x, this.y, this.tamanho);
   }
 
   move() {
@@ -69,19 +71,20 @@ class Bola {
   }
 
   bateParede() {
-    // Agora a bola quica quando toca nas barras
-    if (this.y < alturaBarra || this.y > height - alturaBarra) {
+    if (
+      this.y - this.tamanho / 2 < alturaBarra ||
+      this.y + this.tamanho / 2 > height - alturaBarra
+    ) {
       this.velocidadeY *= -1;
     }
   }
 
   tocaRaquete(raquete) {
     if (
-      this.x - 10 < raquete.x &&
-      this.x + 10 > raquete.x &&
-      this.y - 10 < raquete.y &&
-      this.y + 10 > raquete.y - raquete.altura / 2 &&
-      this.y + 10 < raquete.y + raquete.altura / 2
+      this.x - this.tamanho / 2 < raquete.x + raquete.largura &&
+      this.x + this.tamanho / 2 > raquete.x &&
+      this.y - this.tamanho / 2 < raquete.y + raquete.altura / 2 &&
+      this.y + this.tamanho / 2 > raquete.y - raquete.altura / 2
     ) {
       this.velocidadeX *= -1;
       return true;
@@ -90,7 +93,7 @@ class Bola {
   }
 
   saiuDoCampo() {
-    return this.x < 0 || this.x > width;
+    return this.x - this.tamanho / 2 < 0 || this.x + this.tamanho / 2 > width;
   }
 }
 
@@ -110,7 +113,11 @@ class Raquete {
   }
 
   move(novoY) {
-    // Move a raquete diretamente para a posição do mouse
-    this.y = novoY;
+    // Move a raquete diretamente para a posição do mouse, limitada pelas barras
+    this.y = constrain(
+      novoY,
+      this.altura / 2 + alturaBarra,
+      height - this.altura / 2 - alturaBarra
+    );
   }
 }
