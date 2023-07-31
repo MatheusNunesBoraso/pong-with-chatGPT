@@ -1,6 +1,9 @@
 // Definindo objetos para a bola e as raquetes
 let bola, raqueteJogador, raqueteComputador;
 
+// Definindo a altura das barras
+let alturaBarra = 5;
+
 function setup() {
   createCanvas(800, 600);
 
@@ -12,6 +15,11 @@ function setup() {
 
 function draw() {
   background(0);
+
+  // Desenha as barras
+  fill(255);
+  rect(0, 0, width, alturaBarra);
+  rect(0, height - alturaBarra, width, alturaBarra);
 
   // Lógica da bola
   bola.mostra();
@@ -61,7 +69,8 @@ class Bola {
   }
 
   bateParede() {
-    if (this.y < 0 || this.y > height) {
+    // Agora a bola quica quando toca nas barras
+    if (this.y < alturaBarra || this.y > height - alturaBarra) {
       this.velocidadeY *= -1;
     }
   }
@@ -101,10 +110,7 @@ class Raquete {
   }
 
   move(novoY) {
-    let diferenca = novoY - this.y;
-    if (abs(diferenca) > 1.0) {
-      let direcao = diferenca > 0 ? 1 : -1;
-      this.y += direcao;
-    }
+    // Move a raquete diretamente para a posição do mouse
+    this.y = novoY;
   }
 }
