@@ -51,6 +51,7 @@ function draw() {
 
 // Classe Bola
 // Classe Bola
+// Classe Bola
 class Bola {
   constructor() {
     this.x = width / 2;
@@ -87,6 +88,11 @@ class Bola {
       this.y + this.tamanho / 2 > raquete.y - raquete.altura / 2
     ) {
       this.velocidadeX *= -1;
+
+      // Adiciona um pouco de aleatoriedade à velocidade da bola
+      this.velocidadeX += random(-1, 1);
+      this.velocidadeY += random(-1, 1);
+
       return true;
     }
     return false;
