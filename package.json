@@ -1,0 +1,11 @@
+{
+  "name": "pong-with-chatGPT",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/MatheusNunesBoraso/pong-with-chatGPT.git",
+  "author": "Matheus Nunes Boraso <matheusnunesbrasil@outlook.com>",
+  "license": "MIT",
+  "dependencies": {
+    "p5": "^1.7.0"
+  }
+}
